@@ -5,50 +5,45 @@
 
 (function () { // Beginning of the IIFE
 
-  console.log("App Started...");
-  console.info(`Page Title: ${document.title}`); // string interpolation
+  let data = {
+  "games": [
+    {
+      "name": "Fallout 4",
+      "cost": 69.99,
+      "rating": 4.3
+    },
+    {
+      "name": "Overwatch",
+      "cost": 49.99,
+      "rating": 4.5
+    },
+    {
+      "name": "Horizon Zero Dawn",
+      "cost": 69.99,
+      "rating": 4.1
+    }
+  ]
+};
+
 
   switch (document.title) {
     case "Home":
+      let gameListBody = document.getElementById("gameListBody");
 
-      // declare / initialize firstHeading variable
-      // firstHeading variable creates a link (reference) to the H1 Element
-      let firstHeading = document.getElementById("firstHeading");
+      // for each game in data.games repeat
+      data.games.forEach(function(game) {
+        // inject a "template row" inside the dataRows div tag
+        let newRow = document.createElement("tr");
 
-      firstHeading.style.color = "#000000";
-      firstHeading.style.fontWeight = "500";
-      firstHeading.style.opacity = "0.5";
+        newRow.innerHTML = `
+          <td>${game.name}</td>
+          <td class="text-center">${game.cost}</td>
+          <td class="text-center">${game.rating}</td>
+        `;
 
+        gameListBody.appendChild(newRow);
 
-      // THREE Steps for injecting content onto your page
-      // STEP 1 - create a reference to an Element (reference variable)
-      let FirstParagraph = document.getElementById("FirstParagraph");
-
-      // STEP 2 - create a variable that contains your content (content variable)
-      let myContent = `It was a sunny day in Florida.
-      It felt great. I love the sun.`;
-
-      // STEP 3 - assign the variable with your content to the
-      // textContent propery of the reference variable
-      FirstParagraph.textContent = myContent;
-
-      let SecondParagraph = document.getElementById("SecondParagraph");
-
-      let myHTMLContent = `<h2>Second Heading</h2>
-                          <p>This is an inner paragraph to the Second Paragraph</p>`;
-
-      SecondParagraph.innerHTML = myHTMLContent;
-
-      // create a reference to the button on the page (index.html)
-      let clickMeButton = document.getElementById("clickMeButton");
-
-      // add an event listener - for the click event and call the Click function
-      clickMeButton.addEventListener("click", Click);
-
-      // click function - used as an event handler
-      function Click() {
-        console.log("clicked!");
-      }
+      }, this);
 
       break;
 
