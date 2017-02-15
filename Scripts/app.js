@@ -5,29 +5,27 @@
 
 (function () { // Beginning of the IIFE
 
-  let data = {
-  "games": [
-    {
-      "name": "Fallout 4",
-      "cost": 69.99,
-      "rating": 4.3
-    },
-    {
-      "name": "Overwatch",
-      "cost": 49.99,
-      "rating": 4.5
-    },
-    {
-      "name": "Horizon Zero Dawn",
-      "cost": 69.99,
-      "rating": 4.1
-    }
-  ]
-};
+ 
 
 
   switch (document.title) {
     case "Home":
+
+     let data;
+    //step 1 declare xhr element
+    let XHR = new XMLHttpRequest();
+    // step2 open the file
+    XHR.open("GET","../games.json", true);
+    //step 3 send out a call to XHR object
+    XHR.send();
+    // step4 listen to ready stake
+    XHR.onreadystatechange =  function(){
+      if((this.readyState === 4) && (this.status === 200)) {
+        data= JSON.parse(this.responseText);
+
+      }
+    };
+    XHR.addEventListener("load",function(){
       let gameListBody = document.getElementById("gameListBody");
 
       // for each game in data.games repeat
@@ -44,7 +42,7 @@
         gameListBody.appendChild(newRow);
 
       }, this);
-
+    });
       break;
 
     case "Projects":
