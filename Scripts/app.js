@@ -5,12 +5,46 @@
 
 (function () { // Beginning of the IIFE
 
- 
+  let navbar2= document.getElementById("navbar2");
+    let navbarHTMl;
+
+    let navXHR =new XMLHttpRequest();
+
+    navXHR.open("GET","../navbar.html", true);
+
+    navXHR.send();
+
+    navXHR.onreadystatechange = function(){
+if ((this.readyState === 4) && (this.status === 200)){
+    navbarHTMl = this.response
+}
+    };
+
+    navXHR.addEventListener("load",function(){
+      navbar2.innerHTML=navbarHTMl;
+
+    switch(document.title){
+      case"Home":
+      let homeLink = document.getElementById("homeLink");
+      homeLink.setAttribute("class","active");
+    break;
+
+          case"Projects":
+      let projectsLink = document.getElementById("projectsLink");
+      projectsLink.setAttribute("class","active");
+    break;
+
+          case"Contact":
+      let contactLink = document.getElementById("contactLink");
+      contactLink.setAttribute("class","active");
+    break;
+    }
+  });
 
 
   switch (document.title) {
     case "Home":
-
+   
      let data;
     //step 1 declare xhr element
     let XHR = new XMLHttpRequest();
